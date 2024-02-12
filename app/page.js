@@ -1,32 +1,9 @@
-import Logo from "@/components/logo";
-import { Button } from "@/components/ui/button";
-import { Wallet2 } from "lucide-react";
-import Link from "next/link";
+import Navbar from "@/components/navbar";
 
 export default function Home() {
   return (
     <div className="bg-dark">
-      <div className="fixed top-8 inset-x-0 z-10">
-        <div className="w-full container px-4">
-          <div className="w-full h-16 bg-white/10 rounded-full backdrop-blur-md border border-white/10 flex items-center justify-between px-4">
-            <Link href="/" className="flex items-center gap-2 text-primary font-bold">
-              <Logo />
-              <h2>PromptChain</h2>
-            </Link>
-            <div className="flex items-center gap-8 md:gap-12">
-              <div className="flex items-center gap-8 md:gap-12 text-sm font-medium text-white/70">
-                <Link href="/" className="hover:text-white hover:underline transition-all hover:underline-offset-8 hover:decoration-2">Home</Link>
-                <Link href="/" className="hover:text-white hover:underline transition-all hover:underline-offset-8 hover:decoration-2">Discover</Link>
-                <Link href="/" className="hover:text-white hover:underline transition-all hover:underline-offset-8 hover:decoration-2">Sell Prompt</Link>
-              </div>
-              <Button variant="primary" className="rounded-full gap-2">
-                <Wallet2 className="w-4 h-4" />
-                Connect
-              </Button>
-            </div>
-          </div>
-        </div>
-      </div>
+      <Navbar />
 
       <div className="h-screen">
         <div className="container px-4 h-full">
