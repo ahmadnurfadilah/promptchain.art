@@ -16,7 +16,7 @@ export default function RootLayout({ children }) {
 
   return (
     <html lang="en">
-      <body className="antialiased">
+      <body className="antialiased bg-dark text-white">
         <Providers initialState={initialState}>{children}</Providers>
         <Toaster />
       </body>
