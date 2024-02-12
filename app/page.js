@@ -2,9 +2,7 @@ import Navbar from "@/components/navbar";
 
 export default function Home() {
   return (
-    <div className="bg-dark">
-      <Navbar />
-
+    <>
       <div className="h-screen">
         <div className="container px-4 h-full">
           <div className="h-full overflow-hidden absolute w-2/3 right-0 top-0">
@@ -22,6 +20,6 @@ export default function Home() {
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }

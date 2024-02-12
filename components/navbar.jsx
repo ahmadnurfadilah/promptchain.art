@@ -20,7 +20,7 @@ export default function Navbar() {
               <Link href="/prompt" className="hover:text-white hover:underline transition-all hover:underline-offset-8 hover:decoration-2">
                 Discover
               </Link>
-              <Link href="/" className="hover:text-white hover:underline transition-all hover:underline-offset-8 hover:decoration-2">
+              <Link href="/sell" className="hover:text-white hover:underline transition-all hover:underline-offset-8 hover:decoration-2">
                 Sell Prompt
               </Link>
             </div>

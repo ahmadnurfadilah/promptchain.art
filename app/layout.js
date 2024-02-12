@@ -5,6 +5,7 @@ import { headers } from "next/headers";
 import { cookieToInitialState } from "wagmi";
 import { Providers } from "./provider";
 import { config } from "@/lib/config";
+import Navbar from "@/components/navbar";
 
 export const metadata = {
   title: "PromptChain",
@@ -17,7 +18,12 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className="antialiased bg-dark text-white">
-        <Providers initialState={initialState}>{children}</Providers>
+        <Providers initialState={initialState}>
+          <Navbar />
+          <main className="my-32">
+            {children}
+          </main>
+        </Providers>
         <Toaster />
       </body>
     </html>
