@@ -12,6 +12,8 @@ import PromptCompletion from "./completion";
 import { ipfsGateway } from "@/lib/ipfs";
 import { truncateAddress } from "@/lib/utils";
 import { Skeleton } from "@/components/ui/skeleton";
+import LogoOpensea from "@/components/logo/opensea";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 export default function Page() {
   const { id } = useParams();
@@ -85,40 +87,58 @@ export default function Page() {
               <div className="px-4 pb-4 pt-3 flex flex-col justify-between">
                 <span className={`text-xs text-white/60`}>By: {truncateAddress(ownerOf ?? "")}</span>
                 <hr className="my-4 border-white/10" />
-                <div className="flex items-center gap-2">
-                  {account?.isConnected ? (
-                    <Dialog>
-                      <DialogTrigger className="gap-2 bg-primary text-dark hover:bg-primary/90 h-10 px-4 py-2 flex-1 inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-950 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 dark:ring-offset-gray-950 dark:focus-visible:ring-gray-300">
+                <div className="flex items-center gap-3">
+                  <div className="flex-1 flex items-center gap-2">
+                    {account?.isConnected ? (
+                      <Dialog>
+                        <DialogTrigger className="gap-2 bg-primary text-dark hover:bg-primary/90 h-10 px-4 py-2 flex-1 inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-950 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 dark:ring-offset-gray-950 dark:focus-visible:ring-gray-300">
+                          <span>Try Prompt</span>
+                          <h6 className={`flex items-center gap-1`}>
+                            <LogoBnb className="w-4 h-4" />
+                            <span>{prompt?.price_to_use}</span>
+                          </h6>
+                        </DialogTrigger>
+                        <DialogContent className="bg-zinc-800 border-dark">
+                          <DialogHeader>
+                            <DialogTitle className="text-lg font-bold">Try Prompt: {prompt?.title}</DialogTitle>
+                            <div>
+                              <PromptCompletion tokenId={id} prompt={prompt} />
+                            </div>
+                          </DialogHeader>
+                        </DialogContent>
+                      </Dialog>
+                    ) : (
+                      <Button
+                        className="gap-2 flex-1"
+                        variant="primary"
+                        onClick={() => {
+                          toast.error("Connect your wallet");
+                        }}
+                      >
                         <span>Try Prompt</span>
                         <h6 className={`flex items-center gap-1`}>
                           <LogoBnb className="w-4 h-4" />
-                          <span>{prompt?.price_to_use}</span>
+                          <span>10</span>
                         </h6>
-                      </DialogTrigger>
-                      <DialogContent className="bg-zinc-800 border-dark">
-                        <DialogHeader>
-                          <DialogTitle className="text-lg font-bold">Try Prompt: {prompt?.title}</DialogTitle>
-                          <div>
-                            <PromptCompletion tokenId={id} prompt={prompt} />
-                          </div>
-                        </DialogHeader>
-                      </DialogContent>
-                    </Dialog>
-                  ) : (
-                    <Button
-                      className="gap-2 flex-1"
-                      variant="primary"
-                      onClick={() => {
-                        toast.error("Connect your wallet");
-                      }}
-                    >
-                      <span>Try Prompt</span>
-                      <h6 className={`flex items-center gap-1`}>
-                        <LogoBnb className="w-4 h-4" />
-                        <span>10</span>
-                      </h6>
-                    </Button>
-                  )}
+                      </Button>
+                    )}
+                  </div>
+                  <div className="shrink-0">
+                    <TooltipProvider>
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <Button size="icon" variant="secondary" asChild>
+                            <a href={`https://opensea.io/assets/bsc/${process.env.NEXT_PUBLIC_CONTRACT_ADDRESS}/${id}`} target="_blank">
+                              <LogoOpensea />
+                            </a>
+                          </Button>
+                        </TooltipTrigger>
+                        <TooltipContent>
+                          <p>View on Opensea</p>
+                        </TooltipContent>
+                      </Tooltip>
+                    </TooltipProvider>
+                  </div>
                 </div>
               </div>
             </div>

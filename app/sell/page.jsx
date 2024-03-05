@@ -184,8 +184,8 @@ export default function Page() {
               max_tokens: "250",
             }}
             validationSchema={Yup.object({
-              title: Yup.string().required("Title is required"),
-              description: Yup.string().required("Description is required"),
+              title: Yup.string().max(160).required("Title is required"),
+              description: Yup.string().max(400).required("Description is required"),
               price_to_use: Yup.number().min(0.002).required("Price to use is required"),
               model: step === 2 && Yup.string().required("Model is required"),
               prompt: step === 2 && Yup.string().required("Prompt is required"),
