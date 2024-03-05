@@ -39,6 +39,7 @@ export default function Page() {
 
   useEffect(() => {
     if (errorWriteContract) {
+      setLoading(false);
       toast.error(errorWriteContract?.shortMessage || errorWriteContract?.message || "Failed to write contract");
     }
   }, [errorWriteContract]);
@@ -52,7 +53,7 @@ export default function Page() {
       setLoading(false);
       toast.success("Success");
       setTimeout(() => {
-        router.push("/prompt");
+        router.push("/");
       }, 2000);
     }
   }, [isConfirming, isConfirmed, router]);
@@ -185,7 +186,7 @@ export default function Page() {
             validationSchema={Yup.object({
               title: Yup.string().required("Title is required"),
               description: Yup.string().required("Description is required"),
-              price_to_use: Yup.number().required("Price to use is required"),
+              price_to_use: Yup.number().min(0.002).required("Price to use is required"),
               model: step === 2 && Yup.string().required("Model is required"),
               prompt: step === 2 && Yup.string().required("Prompt is required"),
               preview_output: step === 2 && Yup.string().required("Preview Output is required"),
@@ -217,11 +218,12 @@ export default function Page() {
                         <button
                           type="button"
                           className={`${
-                            category === "DALL-E" ? "border-primary bg-dark text-primary" : "text-white/70 bg-white/10 border-dark"
-                          } relative w-full aspect-[2/1] border flex items-center justify-center font-bold text-sm rounded-md active:scale-95 transition-all`}
-                          onClick={() => setCategory("DALL-E")}
+                            category === "DALL-E" ? "border-primary bg-dark text-primary" : "text-white/30 bg-white/5 border-dark"
+                          } relative w-full aspect-[2/1] border flex items-center justify-center font-bold text-sm rounded-md active:scale-95 transition-all cursor-not-allowed`}
+                          disabled
                         >
                           DALL-E
+                          <p className="absolute bg-red-500 text-[9px] px-1 top-1 right-1 text-white rounded">Comin Soon</p>
                         </button>
                         <button
                           type="button"
