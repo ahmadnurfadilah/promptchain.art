@@ -116,7 +116,7 @@ export default function Page() {
   };
 
   return (
-    <div className="max-w-3xl mx-auto px-4 pt-2 md:pt-4 lg:pt-8">
+    <div className="max-w-3xl mx-auto px-4 pt-2 md:pt-4 lg:pt-8 mt-32">
       <div>
         <div className="w-full rounded-t-md p-4 md:p-6 bg-white/10">
           <ol className="flex items-center w-full text-sm font-bold text-center text-white/80 sm:text-base">

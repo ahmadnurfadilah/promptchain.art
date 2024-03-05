@@ -61,7 +61,7 @@ export default function Page() {
   }, [tokenURI, isLoading, isError, router]);
 
   return (
-    <div className="container px-4">
+    <div className="container px-4 pt-32">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-10">
         <div>
           {isLoading || fetching ? (

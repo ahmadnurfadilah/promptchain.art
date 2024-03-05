@@ -33,7 +33,7 @@ export default function Page() {
   }, []);
 
   return (
-    <div className="container px-4">
+    <div className="container px-4 pt-32">
       <h1 className="font-bold text-4xl mb-8">Discover</h1>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
