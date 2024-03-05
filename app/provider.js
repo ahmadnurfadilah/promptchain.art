@@ -7,14 +7,14 @@ import { bsc, bscTestnet } from "wagmi/chains";
 
 const queryClient = new QueryClient();
 
-const config = getDefaultConfig({
+export const config = getDefaultConfig({
   ssr: true,
   appName: "PromptChain",
   projectId: "026bdd788deb2c204005aeb6c7b33a52",
   storage: createStorage({
     storage: cookieStorage,
   }),
-  chains: [bsc, bscTestnet],
+  chains: process.env.NEXT_PUBLIC_CHAINS.split(",").map((i) => (i == "bsc" && bsc) || (i == "bscTestnet" && bscTestnet)),
 });
 
 export function Providers({ children, initialState }) {
@@ -22,7 +22,7 @@ export function Providers({ children, initialState }) {
     <WagmiProvider config={config} initialState={initialState}>
       <QueryClientProvider client={queryClient}>
         <RainbowKitProvider
-        locale="en-US"
+          locale="en-US"
           theme={darkTheme({
             accentColor: "#7af32a",
             accentColorForeground: "#010101",

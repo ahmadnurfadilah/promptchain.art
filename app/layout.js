@@ -6,6 +6,7 @@ import { cookieToInitialState } from "wagmi";
 import { Providers } from "./provider";
 import { config } from "@/lib/config";
 import Navbar from "@/components/navbar";
+import Loading from "@/components/ui/loading";
 
 export const metadata = {
   title: "PromptChain",
@@ -24,6 +25,7 @@ export default function RootLayout({ children }) {
             {children}
           </main>
         </Providers>
+        <Loading />
         <Toaster />
       </body>
     </html>

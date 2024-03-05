@@ -1,47 +1,47 @@
-import LogoBnb from "@/components/logo/logo-bnb";
-import Link from "next/link";
+"use client";
 
-const DUMMIES = [
-  { id: 1, category: "GPT", title: "Text Extender" },
-  { id: 2, category: "GPT", title: "Text Extender" },
-  { id: 3, category: "GPT", title: "Text Extender" },
-  { id: 4, category: "GPT", title: "Text Extender" },
-  { id: 5, category: "GPT", title: "Text Extender" },
-  { id: 6, category: "GPT", title: "Text Extender" },
-  { id: 7, category: "GPT", title: "Text Extender" },
-  { id: 8, category: "GPT", title: "Text Extender" },
-  { id: 9, category: "GPT", title: "Text Extender" },
-  { id: 10, category: "GPT", title: "Text Extender" },
-  { id: 11, category: "GPT", title: "Text Extender" },
-  { id: 12, category: "GPT", title: "Text Extender" },
-];
+import LogoBnb from "@/components/logo/logo-bnb";
+import { ipfsGateway } from "@/lib/ipfs";
+import Link from "next/link";
+import { useEffect, useState } from "react";
 
 export default function Page() {
+  const [prompts, setPrompts] = useState([]);
+
+  useEffect(() => {
+    const fetchNfts = async () => {
+      const data = await fetch(`/api/nft/get-all?chain=${process.env.NEXT_PUBLIC_CHAINS}`).then((res) => res.json());
+      const result = data?.result?.map((i) => {
+        const metadata = JSON.parse(i.metadata);
+        return {id: i.token_id, title: metadata.name, description: metadata.description, image: metadata.image, attributes: metadata.attributes, price_to_use: metadata.price_to_use}
+      });
+      setPrompts(result);
+    }
+
+    fetchNfts();
+  }, []);
+
   return (
     <div className="container px-4">
       <h1 className="font-bold text-4xl mb-8">Discover</h1>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        {DUMMIES.map((i) => (
+        {prompts.map((i, idx) => (
           <Link
             href={`/prompt/${i.id}`}
             className="w-full bg-white/10 rounded-md group border border-transparent hover:border-primary transition-all hover:shadow-xl hover:scale-[1.01] duration-200"
             key={i.id}
           >
             <div className="p-1">
-              <div className="w-full aspect-[3/2] bg-dark rounded-md flex items-center justify-center">
-                <h2 className="font-bold text-4xl text-primary/10 group-hover:text-primary">#{i.id}</h2>
-              </div>
+              <img src={ipfsGateway(i.image.replace("ipfs://", ""))} alt={i.title} />
             </div>
             <div className="px-4 pb-4 pt-3">
-              <h4 className="font-bold">{i.title}</h4>
+              <h4 className="font-bold mb-1">{i.title}</h4>
+              <p className="text-xs line-clamp-2 text-white/70">{i.description}</p>
               <hr className="my-4 border-white/10" />
-              <div className="flex items-center justify-between text-sm text-white/60">
-                <div className="flex items-center gap-2">
-                  <LogoBnb className="w-4 h-4" />
-                  <span>1 BNB</span>
-                </div>
-                <div>1 Used</div>
+              <div className="flex items-center gap-2">
+                <LogoBnb className="w-4 h-4 group-hover:text-amber-300" />
+                <p className="text-xs">{i.price_to_use}</p>
               </div>
             </div>
           </Link>
