@@ -21,7 +21,7 @@ export default function RootLayout({ children }) {
       <body className="antialiased bg-dark text-white">
         <Providers initialState={initialState}>
           <Navbar />
-          <main className="my-32">
+          <main className="mb-32">
             {children}
           </main>
         </Providers>
